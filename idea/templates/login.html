@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login</title>
+
+    <style>
+        /* 🌈 Neon Gradient Animation */
+        @keyframes neonShift {
+            0%   { --neon: #7f5af0; }
+            25%  { --neon: #00c6ff; }
+            50%  { --neon: #00ff9d; }
+            75%  { --neon: #ff3cac; }
+            100% { --neon: #7f5af0; }
+        }
+
+        body {
+            font-family: Inter, system-ui, sans-serif;
+            margin: 0;
+            height: 100vh;
+            background: #0f0f0f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: neonShift 15s infinite linear;
+            color: #e5e5e5;
+        }
+
+        /* Main Card */
+        .login_box {
+            width: 380px;
+            background: rgba(20,20,20,0.9);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.7),
+                        0 0 25px var(--neon);
+            border: 1px solid var(--neon);
+        }
+
+        h1 { margin: 0 0 10px; color: var(--neon); }
+        p.lead { margin-bottom: 18px; color: #aaa; font-size: 13px; }
+
+        /* Inputs */
+        input[type=text], input[type=password], input[type=email] {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background: #1c1c1c;
+            border: 1px solid #333;
+            color: #eee;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--neon);
+            box-shadow: 0 0 8px var(--neon);
+        }
+
+        label { font-size: 12px; color: #aaa; }
+
+        /* Button */
+        .primary {
+            background: var(--neon);
+            border: none;
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 8px;
+            color: #0f0f0f;
+            font-weight: 600;
+            box-shadow: 0 0 10px var(--neon);
+            transition: 0.3s ease;
+        }
+
+        .primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 18px var(--neon);
+        }
+
+        .muted-link { color: var(--neon); text-decoration: none; font-size: 13px; }
+
+        .message {
+            background: rgba(255, 0, 0, 0.1);
+            border-left: 3px solid #ff4d4d;
+            padding: 8px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .errorlist {
+            color: #ff4d4d;
+            font-size: 13px;
+        }
+
+        .meta {
+            display: flex; justify-content: space-between;
+            margin-bottom: 12px; font-size: 13px; color: #aaa;
+        }
+
+        .meta label { color: #aaa; }
+    </style>
+</head>
+
+<body>
+    <main class="login_box" role="main">
+        <h1>Sign in</h1>
+        <p class="lead">Welcome back — sign in to continue.</p>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="message">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="errorlist">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="form-row">
+                <label for="id_username">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="errorlist">{{ form.username.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-row">
+                <label for="id_password">Password</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="errorlist">{{ form.password.errors }}</div>
+                {% endif %}
+            </div>
+
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+
+            <div class="meta">
+                <label><input type="checkbox" name="remember"> Remember me</label>
+                <a class="muted-link" href="{% url 'password_reset' %}">Forgot password?</a>
+            </div>
+
+            <button class="primary" type="submit">Sign in</button>
+        </form>
+
+        <p style="margin-top:12px;font-size:13px;color:#ccc;">
+            Don't have an account?
+            <a class="muted-link" href="{% url 'signup' %}">Create one</a>
+        </p>
+    </main>
+</body>
+</html>

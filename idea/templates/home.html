@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox – Welcome</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #0d0d0d;
+            color: #e3e3e3;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Animated neon gradient */
+        .neon-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #6a00ff, #00eaff, #00ff88, #ff00aa);
+            background-size: 400% 400%;
+            animation: neon 14s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.22;
+        }
+
+        @keyframes neon {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 50px;
+            text-align: center;
+            color: #00eaff;
+            text-shadow: 0 0 18px #00eaff;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-top: -5px;
+            font-size: 18px;
+            text-align: center;
+            color: #d4d4d4;
+        }
+
+        .buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            background: #00eaff;
+            color: #0d0d0d;
+            font-size: 17px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 0 12px #00eaff;
+        }
+
+        .btn:hover {
+            background: #00c8d4;
+            box-shadow: 0 0 18px #00eaff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="neon-bg"></div>
+
+    <h1>Sandbox</h1>
+    <p>Your eBook universe</p>
+
+    <div class="buttons">
+        <a href="{% url 'login' %}" class="btn">Login</a>
+        <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+    </div>
+
+</body>
+</html>

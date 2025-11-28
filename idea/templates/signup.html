@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create account</title>
+
+  <style>
+    @keyframes neonShift {
+        0%   { --neon: #7f5af0; }
+        25%  { --neon: #00c6ff; }
+        50%  { --neon: #00ff9d; }
+        75%  { --neon: #ff3cac; }
+        100% { --neon: #7f5af0; }
+    }
+
+    body {
+        font-family: Inter, system-ui, sans-serif;
+        background: #0f0f0f;
+        color: #eee;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: neonShift 15s infinite linear;
+    }
+
+    .card {
+        width: 360px;
+        background: rgba(20,20,20,0.9);
+        padding: 26px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.7),
+                    0 0 25px var(--neon);
+        border: 1px solid var(--neon);
+    }
+
+    h2 { margin-top: 0; color: var(--neon); }
+    p { color: #aaa; }
+
+    label { font-size: 13px; color: #ccc; margin-bottom: 4px; display: block; }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        background: #1c1c1c;
+        border: 1px solid #333;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        color: #eee;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: var(--neon);
+        box-shadow: 0 0 8px var(--neon);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: var(--neon);
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #0f0f0f;
+        cursor: pointer;
+        box-shadow: 0 0 12px var(--neon);
+        transition: 0.3s ease;
+    }
+
+    button:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 20px var(--neon);
+    }
+
+    .errorlist {
+        color: #ff4d4d;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    a { color: var(--neon); text-decoration: none; }
+  </style>
+
+</head>
+<body>
+  <main class="card">
+    <h2>Create account</h2>
+    <p>Sign up and get started.</p>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div class="errorlist">{{ form.non_field_errors }}</div>
+      {% endif %}
+
+      {% for field in form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="errorlist">{{ field.errors }}</div>
+        {% endif %}
+      {% endfor %}
+
+      <button type="submit">Create account</button>
+    </form>
+
+    <p style="margin-top:12px;">
+      Already have an account?
+      <a href="{% url 'login' %}">Sign in</a>
+    </p>
+  </main>
+</body>
+</html>
