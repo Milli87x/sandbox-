@@ -12,5 +12,4 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('explore/', views.explore, name='explore'),
     path('profile/', views.profile, name='profile'),
-
 ]

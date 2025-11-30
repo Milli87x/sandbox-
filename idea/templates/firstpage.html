@@ -114,6 +114,133 @@
     text-shadow: 0 0 14px #00eaff;
 }
 
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    backdrop-filter: blur(4px); 
+    background: transparent;   
+}
+.bottom-nav a {
+    color: red;              
+    font-size: 18px;
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Floating Nav */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px; /* lifts bar so it floats */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%; /* not edge to edge */
+    
+    background: rgba(0, 0, 0, 0.25); /* transparent dark tint */
+    backdrop-filter: blur(10px); /* glass effect */
+    -webkit-backdrop-filter: blur(10px);
+
+    padding: 12px 0;
+    border-radius: 18px; /* rounded edges */
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border: none; /* removes any visible line */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35); /* soft shadow for floating look */
+}
+
+/* Links/icons */
+.bottom-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.bottom-nav a:hover,
+.bottom-nav a.active {
+    opacity: 1;
+}
+
+
+
+
+/* MENU BUTTON (top-right neon square) */
+.menu-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+
+.menu-button {
+    width: 45px;
+    height: 45px;
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 12px #00eaff, 0 0 25px #00eaff inset;
+    border: 1px solid #00eaff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #00eaff;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.menu-button:hover {
+    box-shadow: 0 0 18px #00eaff, 0 0 35px #00eaff inset;
+    transform: scale(1.05);
+}
+
+/* DROPDOWN MENU */
+.menu-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background: rgba(15, 15, 15, 0.95);
+    width: 160px;
+    border-radius: 10px;
+    padding: 10px 0;
+    box-shadow: 0 0 20px #00eaff;
+    backdrop-filter: blur(6px);
+    display: none;
+}
+
+.menu-dropdown a,
+.menu-dropdown .logout-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    color: #00eaff;
+    text-decoration: none;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-dropdown a:hover,
+.menu-dropdown .logout-btn:hover {
+    background: rgba(0, 234, 255, 0.15);
+    text-shadow: 0 0 10px #00eaff;
+}
+
     </style>
 </head>
 
@@ -122,16 +249,23 @@
 
     <h1>Welcome to Sandbox</h1>
     <p>Your personal eBook hub</p>
+    <div class="menu-wrapper">
+    <div class="menu-button" onclick="toggleMenu()">
+        ☰
+    </div>
 
-    <div class="content-box">
-        <h2>Your Library</h2>
-        <p>This will later display PDF books, categories, reading progress, and more.</p>
+    <div id="menu-dropdown" class="menu-dropdown">
+        <a href="#">Settings</a>
+        <a href="#">About Us</a>
 
-        <form method="post" action="{% url 'logout' %}" style="display:inline; margin:0; padding:0;">
+        <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
-            <button type="submit" class="btn">Logout</button>
+            <button type="submit" class="logout-btn">Logout</button>
         </form>
     </div>
+    </div>
+
+   
    <div class="bottom-nav">
     <a href="{% url 'firstpage' %}" class="nav-item {% if active_page == 'home' %}active{% endif %}">🏠</a>
     <a href="{% url 'search' %}" class="nav-item {% if active_page == 'search' %}active{% endif %}">🔍</a>
@@ -141,5 +275,23 @@
 
 
     </div>
+
+    <script>
+function toggleMenu() {
+    var menu = document.getElementById("menu-dropdown");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+// Close menu if clicked outside
+document.addEventListener("click", function(e) {
+    const menu = document.getElementById("menu-dropdown");
+    const btn = document.querySelector(".menu-button");
+
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.style.display = "none";
+    }
+});
+</script>
+
 </body>
 </html>
