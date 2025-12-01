@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home – Sandbox</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #0d0d0d;
+            color: #e3e3e3;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-x: hidden;
+        }
+
+        /* Animated neon gradient background */
+        .neon-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #6a00ff, #00eaff, #00ff88, #ff00aa);
+            background-size: 400% 400%;
+            animation: neon 12s ease-in-out infinite;
+            z-index: -1;
+            opacity: 0.25;
+        }
+
+        @keyframes neon {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            margin-top: 60px;
+            font-size: 42px;
+            text-align: center;
+            color: #00eaff;
+            text-shadow: 0 0 12px #00eaff;
+        }
+
+        p {
+            font-size: 18px;
+            margin-top: -10px;
+            text-align: center;
+            color: #cfcfcf;
+        }
+
+        /* Card container for future content like book list */
+        .content-box {
+            margin-top: 40px;
+            width: 90%;
+            max-width: 700px;
+            background: rgba(20, 20, 20, 0.85);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0, 255, 200, 0.25);
+            backdrop-filter: blur(6px);
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #00eaff;
+            color: #0d0d0d;
+            border-radius: 6px;
+            font-size: 16px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #00bcd4;
+            box-shadow: 0 0 12px #00eaff;
+        }
+
+        
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #0d0d0d;
+    border-top: 1px solid #222;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+
+.bottom-nav .nav-item {
+    color: #00eaff;
+    font-size: 26px;
+    text-decoration: none;
+    text-shadow: 0 0 10px #00eaff;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+.bottom-nav .nav-item.active {
+    opacity: 1;
+    text-shadow: 0 0 14px #00eaff;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    backdrop-filter: blur(4px); 
+    background: transparent;   
+}
+.bottom-nav a {
+    color: red;              
+    font-size: 18px;
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Floating Nav */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px; /* lifts bar so it floats */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%; /* not edge to edge */
+    
+    background: rgba(0, 0, 0, 0.25); /* transparent dark tint */
+    backdrop-filter: blur(10px); /* glass effect */
+    -webkit-backdrop-filter: blur(10px);
+
+    padding: 12px 0;
+    border-radius: 18px; /* rounded edges */
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    border: none; /* removes any visible line */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35); /* soft shadow for floating look */
+}
+
+/* Links/icons */
+.bottom-nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.bottom-nav a:hover,
+.bottom-nav a.active {
+    opacity: 1;
+}
+
+
+
+
+/* MENU BUTTON (top-right neon square) */
+.menu-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+
+.menu-button {
+    width: 45px;
+    height: 45px;
+    background: rgba(20, 20, 20, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 12px #00eaff, 0 0 25px #00eaff inset;
+    border: 1px solid #00eaff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    color: #00eaff;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.menu-button:hover {
+    box-shadow: 0 0 18px #00eaff, 0 0 35px #00eaff inset;
+    transform: scale(1.05);
+}
+
+/* DROPDOWN MENU */
+.menu-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    background: rgba(15, 15, 15, 0.95);
+    width: 160px;
+    border-radius: 10px;
+    padding: 10px 0;
+    box-shadow: 0 0 20px #00eaff;
+    backdrop-filter: blur(6px);
+    display: none;
+}
+
+.menu-dropdown a,
+.menu-dropdown .logout-btn {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    color: #00eaff;
+    text-decoration: none;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-dropdown a:hover,
+.menu-dropdown .logout-btn:hover {
+    background: rgba(0, 234, 255, 0.15);
+    text-shadow: 0 0 10px #00eaff;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="neon-bg"></div>
+     <h3>search</h3>
+   <div class="bottom-nav">
+    <a href="{% url 'firstpage' %}" class="nav-item {% if active_page == 'home' %}active{% endif %}">🏠</a>
+    <a href="{% url 'search' %}" class="nav-item {% if active_page == 'search' %}active{% endif %}">🔍</a>
+    <a href="{% url 'explore' %}" class="nav-item {% if active_page == 'explore' %}active{% endif %}">✨</a>
+    <a href="{% url 'profile' %}" class="nav-item {% if active_page == 'profile' %}active{% endif %}">👤</a>
+</div>
+
+
+    </div>
+
+</body>
+</html>

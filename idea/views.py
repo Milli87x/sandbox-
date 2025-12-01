@@ -56,7 +56,7 @@ def signup_page(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect('firstpage')  # fixed
+            return redirect('firstpage')  
     else:
         form = UserCreationForm()
 
