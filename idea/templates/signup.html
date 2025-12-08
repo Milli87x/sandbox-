@@ -1,227 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home – Sandbox</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create account</title>
 
-<style>
-    /* RESET */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+  <style>
+    @keyframes neonShift {
+        0%   { --neon: #7f5af0; }
+        25%  { --neon: #00c6ff; }
+        50%  { --neon: #00ff9d; }
+        75%  { --neon: #ff3cac; }
+        100% { --neon: #7f5af0; }
     }
 
     body {
-        font-family: Arial, sans-serif;
-        background: #0d0d0d;
-        color: #e3e3e3;
+        font-family: Inter, system-ui, sans-serif;
+        background: #0f0f0f;
+        color: #eee;
+        margin: 0;
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow-x: hidden;
-    }
-
-    /* Animated Neon Gradient Background */
-    .neon-bg {
-        position: fixed;
-        inset: 0;
-        background: linear-gradient(135deg, #6a00ff, #00eaff, #00ff88, #ff00aa);
-        background-size: 400% 400%;
-        animation: neonAnim 12s ease-in-out infinite;
-        z-index: -1;
-        opacity: 0.25;
-    }
-
-    @keyframes neonAnim {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    /* Title */
-    h1 {
-        margin-top: 100px;
-        font-size: 40px;
-        text-align: center;
-        color: #00eaff;
-        text-shadow: 0 0 12px #00eaff;
-        font-weight: 700;
-    }
-
-    p.subtitle {
-        font-size: 18px;
-        margin-top: 8px;
-        text-align: center;
-        color: #cfcfcf;
-    }
-
-    /* Glowing Username Block */
-    .username-box {
-        margin-top: 28px;
-        padding: 14px 26px;
-        background: rgba(0, 0, 0, 0.45);
-        border-radius: 14px;
-        box-shadow: 0 0 18px #00ffff99, 0 0 32px #00ffff44 inset;
-        border: 1px solid #00eaff;
-        font-size: 20px;
-        font-weight: bold;
-        color: #00eaff;
-        text-shadow: 0 0 8px #00eaff;
-    }
-
-    /* Floating Bottom Nav */
-    .bottom-nav {
-        position: fixed;
-        bottom: 25px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 85%;
-        background: rgba(0, 0, 0, 0.25);
-        backdrop-filter: blur(10px);
-        padding: 12px 0;
-        border-radius: 20px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        z-index: 2000;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-    }
-
-    .bottom-nav a {
-        color: #ffffff;
-        text-decoration: none;
-        font-size: 25px;
-        opacity: 0.55;
-        transition: 0.2s;
-        text-shadow: 0 0 10px #00eaff55;
-    }
-
-    .bottom-nav a.active,
-    .bottom-nav a:hover {
-        opacity: 1;
-        text-shadow: 0 0 14px #00eaff;
-    }
-
-    /* Top Right Menu Button */
-    .menu-wrapper {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 2000;
-    }
-
-    .menu-button {
-        width: 48px;
-        height: 48px;
-        background: rgba(20, 20, 20, 0.9);
-        border-radius: 12px;
-        border: 1px solid #00eaff;
-        box-shadow: 0 0 12px #00eaff, inset 0 0 22px #00eaff55;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #00eaff;
-        font-size: 22px;
-        cursor: pointer;
-        transition: 0.25s;
+        animation: neonShift 15s infinite linear;
     }
 
-    .menu-button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 18px #00eaff, inset 0 0 35px #00eaffaa;
-    }
-
-    /* Dropdown */
-    .menu-dropdown {
-        position: absolute;
-        top: 55px;
-        right: 0;
-        width: 160px;
-        background: rgba(15, 15, 15, 0.95);
+    .card {
+        width: 360px;
+        background: rgba(20,20,20,0.9);
+        padding: 26px;
         border-radius: 12px;
-        padding: 10px 0;
-        box-shadow: 0 0 18px #00eaff;
-        display: none;
+        box-shadow: 0 0 15px rgba(0,0,0,0.7),
+                    0 0 25px var(--neon);
+        border: 1px solid var(--neon);
     }
 
-    .menu-dropdown a,
-    .menu-dropdown button {
-        display: block;
-        padding: 10px 15px;
+    h2 { margin-top: 0; color: var(--neon); }
+    p { color: #aaa; }
+
+    label { font-size: 13px; color: #ccc; margin-bottom: 4px; display: block; }
+
+    input {
         width: 100%;
-        text-align: left;
-        font-size: 16px;
-        text-decoration: none;
+        padding: 10px;
+        background: #1c1c1c;
+        border: 1px solid #333;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        color: #eee;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: var(--neon);
+        box-shadow: 0 0 8px var(--neon);
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: var(--neon);
         border: none;
-        background: none;
-        color: #00eaff;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #0f0f0f;
         cursor: pointer;
-        transition: 0.2s;
+        box-shadow: 0 0 12px var(--neon);
+        transition: 0.3s ease;
     }
 
-    .menu-dropdown a:hover,
-    .menu-dropdown button:hover {
-        background: rgba(0, 234, 255, 0.15);
-        text-shadow: 0 0 10px #00eaff;
+    button:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 20px var(--neon);
     }
 
-</style>
+    .errorlist {
+        color: #ff4d4d;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    a { color: var(--neon); text-decoration: none; }
+  </style>
+
 </head>
-
 <body>
+  <main class="card">
+    <h2>Create account</h2>
+    <p>Sign up and get started.</p>
 
-<div class="neon-bg"></div>
+    <form method="post" novalidate>
+      {% csrf_token %}
 
-<h1>Welcome to Sandbox</h1>
-<p class="subtitle">Your personal eBook hub</p>
+      {% if form.non_field_errors %}
+        <div class="errorlist">{{ form.non_field_errors }}</div>
+      {% endif %}
 
-<!-- Glowing Username -->
-<div class="username-box">
-    {{ request.user.username }}
-</div>
+      {% for field in form %}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="errorlist">{{ field.errors }}</div>
+        {% endif %}
+      {% endfor %}
 
-<!-- Menu Button -->
-<div class="menu-wrapper">
-    <div class="menu-button" onclick="toggleMenu()">☰</div>
+      <button type="submit">Create account</button>
+    </form>
 
-    <div id="menu-dropdown" class="menu-dropdown">
-        <a href="#">Settings</a>
-        <a href="#">About Us</a>
-
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="logout-btn">Logout</button>
-        </form>
-    </div>
-</div>
-
-<!-- Floating Bottom Navigation -->
-<div class="bottom-nav">
-    <a href="{% url 'firstpage' %}" class="{% if active_page == 'home' %}active{% endif %}">🏠</a>
-    <a href="{% url 'search' %}" class="{% if active_page == 'search' %}active{% endif %}">🔍</a>
-    <a href="{% url 'explore' %}" class="{% if active_page == 'explore' %}active{% endif %}">✨</a>
-    <a href="{% url 'profile' %}" class="{% if active_page == 'profile' %}active{% endif %}">👤</a>
-</div>
-
-
-<script>
-function toggleMenu() {
-    const menu = document.getElementById("menu-dropdown");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-document.addEventListener("click", function(e) {
-    const menu = document.getElementById("menu-dropdown");
-    const btn = document.querySelector(".menu-button");
-
-    if (!menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.style.display = "none";
-    }
-});
-</script>
-
+    <p style="margin-top:12px;">
+      Already have an account?
+      <a href="{% url 'login' %}">Sign in</a>
+    </p>
+  </main>
 </body>
 </html>
