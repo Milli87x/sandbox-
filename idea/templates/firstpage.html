@@ -174,98 +174,94 @@ body {
     opacity: 1;
 }
 
-
-
-
-/* MENU BUTTON (top-right neon square) */
-.menu-wrapper {
+/* neon rounded-square menu button */
+.menu-btn {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 2000;
-}
-
-.menu-button {
+    top: 15px;
+    right: 15px;
     width: 45px;
     height: 45px;
-    background: rgba(20, 20, 20, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 0 12px #00eaff, 0 0 25px #00eaff inset;
-    border: 1px solid #00eaff;
+    border-radius: 12px;  /* rounded square */
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid #0ff;
+    box-shadow: 0 0 10px #0ff, 0 0 25px #0ff inset;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    font-size: 22px;
-    color: #00eaff;
+    justify-content: center;
+    gap: 5px;
     cursor: pointer;
-    transition: 0.25s;
+    z-index: 999;
 }
 
-.menu-button:hover {
-    box-shadow: 0 0 18px #00eaff, 0 0 35px #00eaff inset;
-    transform: scale(1.05);
+.menu-btn span {
+    width: 60%;
+    height: 3px;
+    background: #0ff;
+    box-shadow: 0 0 6px #0ff;
+    display: block;
 }
 
-/* DROPDOWN MENU */
-.menu-dropdown {
-    position: absolute;
-    top: 55px;
-    right: 0;
-    background: rgba(15, 15, 15, 0.95);
-    width: 160px;
-    border-radius: 10px;
+/* dropdown menu */
+.dropdown-menu {
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    width: 150px;
+    background: rgba(20, 20, 20, 0.9);
+    border: 2px solid #0ff;
+    border-radius: 12px;
+    box-shadow: 0 0 12px #0ff;
     padding: 10px 0;
-    box-shadow: 0 0 20px #00eaff;
-    backdrop-filter: blur(6px);
+    z-index: 998;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(0,255,255,0.2);
+}
+
+.hidden {
     display: none;
 }
 
-.menu-dropdown a,
-.menu-dropdown .logout-btn {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    color: #00eaff;
-    text-decoration: none;
-    font-size: 16px;
-    background: transparent;
-    border: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.menu-dropdown a:hover,
-.menu-dropdown .logout-btn:hover {
-    background: rgba(0, 234, 255, 0.15);
-    text-shadow: 0 0 10px #00eaff;
-}
 
     </style>
 </head>
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("dropdown-menu");
+    menu.classList.toggle("hidden");
+}
+</script>
+
 
 <body>
-    <div class="neon-bg"></div>
-
-    <h1>Welcome to Sandbox</h1>
-    <p>Your personal eBook hub</p>
-    <div class="menu-wrapper">
-    <div class="menu-button" onclick="toggleMenu()">
-        ☰
+    <div class="menu-btn" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
     </div>
 
-    <div id="menu-dropdown" class="menu-dropdown">
-        <a href="#">Settings</a>
-        <a href="#">About Us</a>
-
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="logout-btn">Logout</button>
-        </form>
+    <div id="dropdown-menu" class="dropdown-menu hidden">
+            <a href="#" class="menu-item logout-link">Logout</a>
+            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none;">
+                {% csrf_token %}
+            </form>
+    <a href="#">Settings</a>
+    <a href="#">About Us</a>
     </div>
-    </div>
-
    
+    <div class="neon-bg"></div>
+     <h3>home</h3>
    <div class="bottom-nav">
     <a href="{% url 'firstpage' %}" class="nav-item {% if active_page == 'home' %}active{% endif %}">🏠</a>
     <a href="{% url 'search' %}" class="nav-item {% if active_page == 'search' %}active{% endif %}">🔍</a>
@@ -276,19 +272,14 @@ body {
 
     </div>
 
-    <script>
-function toggleMenu() {
-    var menu = document.getElementById("menu-dropdown");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
-}
-
-// Close menu if clicked outside
-document.addEventListener("click", function(e) {
-    const menu = document.getElementById("menu-dropdown");
-    const btn = document.querySelector(".menu-button");
-
-    if (!menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.style.display = "none";
+<script>
+// submit the hidden logout form when logout link is clicked
+document.addEventListener('click', function (e) {
+    const logoutLink = e.target.closest && e.target.closest('.logout-link');
+    if (logoutLink) {
+        e.preventDefault();
+        const form = document.getElementById('logout-form');
+        if (form) form.submit();
     }
 });
 </script>

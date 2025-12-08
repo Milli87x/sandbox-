@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import SignUpForm
+from .models import profile as ProfileModel
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.views.generic import TemplateView
+from django.contrib import admin
 
 
 def login_page(request):
@@ -27,8 +33,6 @@ def explore(request):
     return render(request, 'explore.html', {'active_page': 'explore'})
 
 
-def profile(request):
-    return render(request, 'profile.html', {'active_page': 'profile'})
 
 
 class Home(TemplateView):
@@ -52,12 +56,35 @@ class Firstpage(TemplateView):
 
 def signup_page(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            email = form.cleaned_data.get('email')
+            try:
+                profile, created = ProfileModel.objects.get_or_create(user=user, defaults={'email': email})
+                if not created and getattr(profile, 'email', None) != email:
+                    profile.email = email
+                    profile.save()
+            except Exception:
+                pass
+
             auth_login(request, user)
-            return redirect('firstpage')  
+            return redirect('firstpage')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
 
     return render(request, 'signup.html', {'form': form})
+
+
+@login_required
+def my_profile(request):
+    return redirect('profile_detail', username=request.user.username)
+
+def profile_detail(request, username):
+    User = get_user_model()
+    user_obj = get_object_or_404(User, username=username)
+    profile = getattr(user_obj, 'profile', None)
+    return render(request, 'profile.html', {
+        'profile_user': user_obj,
+        'profile': profile,
+    })
