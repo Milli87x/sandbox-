@@ -1,120 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Create account</title>
+    <meta charset="UTF-8">
+    <title>Sign Up — E-BOOK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    @keyframes neonShift {
-        0%   { --neon: #7f5af0; }
-        25%  { --neon: #00c6ff; }
-        50%  { --neon: #00ff9d; }
-        75%  { --neon: #ff3cac; }
-        100% { --neon: #7f5af0; }
-    }
+    <style>
+        body {
+            margin: 0;
+            background: #0b0b0b;
+            font-family: Arial, sans-serif;
+            color: #e7e7e7;
+            text-align: center;
+        }
 
-    body {
-        font-family: Inter, system-ui, sans-serif;
-        background: #0f0f0f;
-        color: #eee;
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        animation: neonShift 15s infinite linear;
-    }
+        .neon-bg {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg,#6a00ff,#00eaff,#00ff88,#ff00aa);
+            background-size: 400% 400%;
+            animation: neonShift 12s infinite alternate ease-in-out;
+            opacity: .25;
+            z-index: -1;
+        }
 
-    .card {
-        width: 360px;
-        background: rgba(20,20,20,0.9);
-        padding: 26px;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.7),
-                    0 0 25px var(--neon);
-        border: 1px solid var(--neon);
-    }
+        @keyframes neonShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    h2 { margin-top: 0; color: var(--neon); }
-    p { color: #aaa; }
+        .card {
+            margin: 80px auto;
+            width: 90%;
+            max-width: 360px;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 26px;
+            box-shadow: 0 0 30px rgba(0,234,255,.25);
+        }
 
-    label { font-size: 13px; color: #ccc; margin-bottom: 4px; display: block; }
+        h2 {
+            color: #00eaff;
+            text-shadow: 0 0 12px #00eaff;
+            margin-bottom: 8px;
+        }
 
-    input {
-        width: 100%;
-        padding: 10px;
-        background: #1c1c1c;
-        border: 1px solid #333;
-        border-radius: 8px;
-        margin-bottom: 12px;
-        color: #eee;
-        font-size: 14px;
-        transition: 0.3s;
-    }
+        label {
+            display: block;
+            text-align: left;
+            margin: 14px 0 6px;
+            font-size: 13px;
+            color: #cfcfcf;
+        }
 
-    input:focus {
-        outline: none;
-        border-color: var(--neon);
-        box-shadow: 0 0 8px var(--neon);
-    }
+        input {
+            width: 100%;
+            padding: 11px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
 
-    button {
-        width: 100%;
-        padding: 12px;
-        background: var(--neon);
-        border: none;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 600;
-        color: #0f0f0f;
-        cursor: pointer;
-        box-shadow: 0 0 12px var(--neon);
-        transition: 0.3s ease;
-    }
+        .errorlist {
+            color: #ff6b6b;
+            font-size: 13px;
+            text-align: left;
+            margin: 6px 0;
+        }
 
-    button:hover {
-        transform: scale(1.03);
-        box-shadow: 0 0 20px var(--neon);
-    }
+        button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            background: #00eaff;
+            color: #0b0b0b;
+            cursor: pointer;
+            box-shadow: 0 0 18px #00eaff;
+        }
 
-    .errorlist {
-        color: #ff4d4d;
-        margin-bottom: 10px;
-        font-size: 14px;
-    }
+        p {
+            font-size: 13px;
+            margin-top: 14px;
+            color: #cfcfcf;
+        }
 
-    a { color: var(--neon); text-decoration: none; }
-  </style>
-
+        a { color: #00eaff; text-decoration: none; }
+    </style>
 </head>
+
 <body>
-  <main class="card">
-    <h2>Create account</h2>
-    <p>Sign up and get started.</p>
 
-    <form method="post" novalidate>
-      {% csrf_token %}
+<div class="neon-bg"></div>
 
-      {% if form.non_field_errors %}
-        <div class="errorlist">{{ form.non_field_errors }}</div>
-      {% endif %}
+<div class="card">
+    <h2>Create Account</h2>
+    <p>Join E-BOOK today</p>
 
-      {% for field in form %}
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-        {% if field.errors %}
-          <div class="errorlist">{{ field.errors }}</div>
+    <form method="post">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="errorlist">{{ form.non_field_errors }}</div>
         {% endif %}
-      {% endfor %}
 
-      <button type="submit">Create account</button>
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="errorlist">{{ field.errors }}</div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit">Sign Up</button>
     </form>
 
-    <p style="margin-top:12px;">
-      Already have an account?
-      <a href="{% url 'login' %}">Sign in</a>
+    <p>Already have an account?
+        <a href="{% url 'login' %}">Log in</a>
     </p>
-  </main>
+</div>
+
 </body>
 </html>
