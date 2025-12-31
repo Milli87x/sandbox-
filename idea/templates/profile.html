@@ -141,6 +141,65 @@
     font-size: 18px;
     text-decoration: none;
 }
+.menu-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;  /* rounded square */
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid #0ff;
+    box-shadow: 0 0 10px #0ff, 0 0 25px #0ff inset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.menu-btn span {
+    width: 60%;
+    height: 3px;
+    background: #0ff;
+    box-shadow: 0 0 6px #0ff;
+    display: block;
+}
+
+/* dropdown menu */
+.dropdown-menu {
+    position: fixed;
+    top: 70px;
+    right: 15px;
+    width: 150px;
+    background: rgba(20, 20, 20, 0.9);
+    border: 2px solid #0ff;
+    border-radius: 12px;
+    box-shadow: 0 0 12px #0ff;
+    padding: 10px 0;
+    z-index: 998;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(0,255,255,0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+
 
 body {
     margin: 0;
@@ -187,8 +246,29 @@ body {
 
     </style>
 </head>
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("dropdown-menu");
+    menu.classList.toggle("hidden");
+}
+</script>
 
 <body>
+
+ <div class="menu-btn" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+    </div>
+
+    <div id="dropdown-menu" class="dropdown-menu hidden">
+            <a href="#" class="menu-item logout-link">Logout</a>
+            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none;">
+                {% csrf_token %}
+            </form>
+    <a href="#">Settings</a>
+    <a href="#">About Us</a>
+    </div>    
 
 <div class="container">
     <h1>Profile</h1>

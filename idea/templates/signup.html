@@ -110,9 +110,6 @@
             <div class="errorlist">{{ form.non_field_errors }}</div>
         {% endif %}
 
-        <label>Email</label>
-        <input type="email" name="email" required>
-
         {% for field in form %}
             <label>{{ field.label }}</label>
             {{ field }}
@@ -131,3 +128,4 @@
 
 </body>
 </html>
+ 

@@ -1,9 +1,18 @@
 from django.contrib import admin
-from .models import profile
+from .models import *
 
 
 @admin.register(profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio')
     search_fields = ('user__username',)
-    # no list_filter on 'email' because profile model currently doesn't have that field
+    
+
+@admin.register(Book)
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('title','author','num_pages')
+    fields = (
+        'title',
+        'author',
+        'pdf_file',
+    )

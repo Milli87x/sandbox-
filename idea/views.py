@@ -9,8 +9,16 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.views.generic import TemplateView
 from django.contrib import admin
+from .models import *
+
+#def book_list(request):
+    #books = Book.objects.all()
+    #return render(request, 'bookslist.html', {'books': books})
 
 
+#def book_detail(request, pk):
+   # book = get_object_or_404(Book, pk=pk)
+    #return render(request, 'books/book_detail/.html', {'book': book})
 def login_page(request):
     form = AuthenticationForm(request, data=(request.POST or None))
 
@@ -45,6 +53,9 @@ class Home(TemplateView):
 
 
 class Firstpage(TemplateView):
+    def firstpage(request):
+     
+     books = Book.objects.all().order_by('-upload_time')
     template_name = 'firstpage.html'
 
 
