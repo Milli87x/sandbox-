@@ -262,6 +262,32 @@ function toggleMenu() {
    
     <div class="neon-bg"></div>
      <h3>home</h3>
+
+    <div class='content-box'>
+        <h2 style="text-align:center;color:#00eaff;">Library</h2>
+        
+        {% for book in books%}
+            <div style="
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,255,255,0.15);
+            ">
+                <h3 style="margin:0;color:#ffffff">
+                    {{book.title}}
+                </h3>
+                <a href="{{book.pdf.url}}"
+                   target="_blank"
+                   class="btn"
+                   style="margin-top: 10px;"> READ PDF
+                </a>
+            </div>
+        {%empty%}
+            <p style="text-align: center;color: #aaa;">No Books Available</p>
+        {%endfor%}
+    </div>                    
+
    <div class="bottom-nav">
     <a href="{% url 'firstpage' %}" class="nav-item {% if active_page == 'home' %}active{% endif %}">🏠</a>
     <a href="{% url 'search' %}" class="nav-item {% if active_page == 'search' %}active{% endif %}">🔍</a>
@@ -273,7 +299,7 @@ function toggleMenu() {
     </div>
 
 <script>
-// submit the hidden logout form when logout link is clicked
+
 document.addEventListener('click', function (e) {
     const logoutLink = e.target.closest && e.target.closest('.logout-link');
     if (logoutLink) {
