@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.views.generic import TemplateView
 from django.contrib import admin
-from .models import *
+from .models import profile, Book
 
 def login_page(request):
     form = AuthenticationForm(request, data=(request.POST or None))
@@ -52,6 +52,13 @@ class Firstpage(TemplateView):
         ctx['books']= Book.objects.all()
         ctx['active_page'] = 'home'
         return ctx
+
+def reader(request,book_id):
+    book= get_object_or_404(Book,id=book_id)
+    return render(request,'reader.html',{'book':book})
+
+    
+    
 
 
 def signup_page(request):

@@ -6,6 +6,7 @@ from idea import views
 urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('accounts/login/', login_page, name='login'),
+    path('reader/<uuid:book_id>/', views.reader, name='reader'),
     path('signup/', signup_page, name='signup'),
     path('firstpage/', views.Firstpage.as_view(), name='firstpage'),
     path('logout/', LogoutView.as_view(), name='logout'),

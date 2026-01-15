@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home – Sandbox</title>
-
     <style>
+        /* Base Styles */
         body {
             margin: 0;
             padding: 0;
@@ -40,275 +40,202 @@
             100% { background-position: 0% 50%; }
         }
 
-        h1 {
+        h3.page-title {
             margin-top: 60px;
-            font-size: 42px;
-            text-align: center;
             color: #00eaff;
-            text-shadow: 0 0 12px #00eaff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00eaff;
         }
 
-        p {
-            font-size: 18px;
-            margin-top: -10px;
-            text-align: center;
-            color: #cfcfcf;
-        }
-
-        /* Card container for future content like book list */
+        /* Content Card */
         .content-box {
-            margin-top: 40px;
+            margin-top: 20px;
             width: 90%;
             max-width: 700px;
             background: rgba(20, 20, 20, 0.85);
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 0 30px rgba(0, 255, 200, 0.25);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(10px);
+            margin-bottom: 100px; /* Space for floating nav */
+        }
+
+        .book-card {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 234, 0.1);
+            transition: 0.3s;
+        }
+
+        .book-card:hover {
+            border-color: #00eaff;
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.2);
         }
 
         .btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 12px 20px;
+            margin-top: 10px;
+            padding: 10px 18px;
             background: #00eaff;
             color: #0d0d0d;
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 14px;
             text-decoration: none;
             font-weight: bold;
             transition: 0.3s;
         }
 
         .btn:hover {
-            background: #00bcd4;
-            box-shadow: 0 0 12px #00eaff;
+            background: #fff;
+            box-shadow: 0 0 15px #00eaff;
         }
 
-        
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #0d0d0d;
-    border-top: 1px solid #222;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    z-index: 1000;
-}
+        /* Floating Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 12px 0;
+            border-radius: 25px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
 
+        .nav-item {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 22px;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
 
-.bottom-nav .nav-item {
-    color: #00eaff;
-    font-size: 26px;
-    text-decoration: none;
-    text-shadow: 0 0 10px #00eaff;
-    opacity: 0.6;
-    transition: 0.2s;
-}
+        .nav-item.active, .nav-item:hover {
+            opacity: 1;
+            text-shadow: 0 0 10px #00eaff;
+            transform: translateY(-3px);
+        }
 
-.bottom-nav .nav-item.active {
-    opacity: 1;
-    text-shadow: 0 0 14px #00eaff;
-}
+        /* Dropdown Menu */
+        .menu-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #0ff;
+            box-shadow: 0 0 10px #0ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 999;
+        }
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: 12px 0;
-    backdrop-filter: blur(4px); 
-    background: transparent;   
-}
-.bottom-nav a {
-    color: red;              
-    font-size: 18px;
-    text-decoration: none;
-}
+        .menu-btn span { width: 25px; height: 3px; background: #0ff; box-shadow: 0 0 5px #0ff; }
 
-body {
-    margin: 0;
-    padding: 0;
-}
+        .dropdown-menu {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            width: 160px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid #0ff;
+            border-radius: 12px;
+            padding: 8px 0;
+            z-index: 998;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
 
-/* Floating Nav */
-.bottom-nav {
-    position: fixed;
-    bottom: 20px; /* lifts bar so it floats */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 85%; /* not edge to edge */
-    
-    background: rgba(0, 0, 0, 0.25); /* transparent dark tint */
-    backdrop-filter: blur(10px); /* glass effect */
-    -webkit-backdrop-filter: blur(10px);
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
 
-    padding: 12px 0;
-    border-radius: 18px; /* rounded edges */
-    
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    border: none; /* removes any visible line */
-    box-shadow: 0 4px 20px rgba(0,0,0,0.35); /* soft shadow for floating look */
-}
-
-/* Links/icons */
-.bottom-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 400;
-    opacity: 0.8;
-    transition: 0.2s;
-}
-
-.bottom-nav a:hover,
-.bottom-nav a.active {
-    opacity: 1;
-}
-
-/* neon rounded-square menu button */
-.menu-btn {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    width: 45px;
-    height: 45px;
-    border-radius: 12px;  /* rounded square */
-    backdrop-filter: blur(8px);
-    background: rgba(0, 0, 0, 0.4);
-    border: 2px solid #0ff;
-    box-shadow: 0 0 10px #0ff, 0 0 25px #0ff inset;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    cursor: pointer;
-    z-index: 999;
-}
-
-.menu-btn span {
-    width: 60%;
-    height: 3px;
-    background: #0ff;
-    box-shadow: 0 0 6px #0ff;
-    display: block;
-}
-
-/* dropdown menu */
-.dropdown-menu {
-    position: fixed;
-    top: 70px;
-    right: 15px;
-    width: 150px;
-    background: rgba(20, 20, 20, 0.9);
-    border: 2px solid #0ff;
-    border-radius: 12px;
-    box-shadow: 0 0 12px #0ff;
-    padding: 10px 0;
-    z-index: 998;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-}
-
-.dropdown-menu a:hover {
-    background: rgba(0,255,255,0.2);
-}
-
-.hidden {
-    display: none;
-}
-
-
+        .dropdown-menu a:hover { background: rgba(0, 255, 255, 0.1); color: #0ff; }
+        .hidden { display: none; }
     </style>
 </head>
-<script>
-function toggleMenu() {
-    const menu = document.getElementById("dropdown-menu");
-    menu.classList.toggle("hidden");
-}
-</script>
-
-
 <body>
+
+    <div class="neon-bg"></div>
+
     <div class="menu-btn" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+        <span></span><span></span><span></span>
     </div>
 
     <div id="dropdown-menu" class="dropdown-menu hidden">
-            <a href="#" class="menu-item logout-link">Logout</a>
-            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none;">
-                {% csrf_token %}
-            </form>
-    <a href="#">Settings</a>
-    <a href="#">About Us</a>
+        <a href="#" class="logout-link">Logout</a>
+        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none;">
+            {% csrf_token %}
+        </form>
+        <a href="#">Settings</a>
+        <a href="#">About Us</a>
     </div>
-   
-    <div class="neon-bg"></div>
-     <h3>home</h3>
 
-    <div class='content-box'>
-        <h2 style="text-align:center;color:#00eaff;">Library</h2>
+    <h3 class="page-title">Home</h3>
+
+    <div class="content-box">
+        <h2 style="text-align:center; color:#00eaff; margin-top:0;">Library</h2>
         
-        {% for book in books%}
-            <div style="
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,255,255,0.15);
-            ">
-                <h3 style="margin:0;color:#ffffff">
-                    {{book.title}}
-                </h3>
-                <a href="{{book.pdf.url}}"
-                   target="_blank"
-                   class="btn"
-                   style="margin-top: 10px;"> READ PDF
-                </a>
+        {% for book in books %}
+            <div class="book-card">
+                <h3 style="margin:0; color:#ffffff">{{ book.title }}</h3>
+                <a href="{% url 'reader' book.id %}" class="btn">Read {{ book.title }}</a>
             </div>
-        {%empty%}
-            <p style="text-align: center;color: #aaa;">No Books Available</p>
-        {%endfor%}
-    </div>                    
-
-   <div class="bottom-nav">
-    <a href="{% url 'firstpage' %}" class="nav-item {% if active_page == 'home' %}active{% endif %}">🏠</a>
-    <a href="{% url 'search' %}" class="nav-item {% if active_page == 'search' %}active{% endif %}">🔍</a>
-    <a href="{% url 'explore' %}" class="nav-item {% if active_page == 'explore' %}active{% endif %}">✨</a>
-    <a href="{% url 'profile' %}" class="nav-item {% if active_page == 'profile' %}active{% endif %}">👤</a>
-</div>
-
-
+        {% empty %}
+            <p style="text-align: center; color: #aaa;">No Books Available</p>
+        {% endfor %}
     </div>
 
-<script>
+    <div class="bottom-nav">
+        <a href="{% url 'firstpage' %}" class="nav-item {% if active_page == 'home' %}active{% endif %}">🏠</a>
+        <a href="{% url 'search' %}" class="nav-item {% if active_page == 'search' %}active{% endif %}">🔍</a>
+        <a href="{% url 'explore' %}" class="nav-item {% if active_page == 'explore' %}active{% endif %}">✨</a>
+        <a href="{% url 'profile' %}" class="nav-item {% if active_page == 'profile' %}active{% endif %}">👤</a>
+    </div>
 
-document.addEventListener('click', function (e) {
-    const logoutLink = e.target.closest && e.target.closest('.logout-link');
-    if (logoutLink) {
-        e.preventDefault();
-        const form = document.getElementById('logout-form');
-        if (form) form.submit();
-    }
-});
-</script>
+    <script>
+        function toggleMenu() {
+            document.getElementById("dropdown-menu").classList.toggle("hidden");
+        }
 
+        
+        window.onclick = function(event) {
+            if (!event.target.closest('.menu-btn') && !event.target.closest('.dropdown-menu')) {
+                document.getElementById("dropdown-menu").classList.add("hidden");
+            }
+        }
+
+        
+        document.addEventListener('click', function (e) {
+            const logoutLink = e.target.closest('.logout-link');
+            if (logoutLink) {
+                e.preventDefault();
+                const form = document.getElementById('logout-form');
+                if (form) form.submit();
+            }
+        });
+    </script>
 </body>
 </html>

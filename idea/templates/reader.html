@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{book.title}}</title>
+
+        <style>
+            html,body{
+                margin: 0;
+                padding: 100%;
+                height: 100%;
+                background: #c7b9b9;
+            }
+
+            iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+                background: #af9191;
+            }
+        </style>
+    </head>
+     
+    <body>
+        <div class="reader">
+            <iframe src="{{ book.pdf_file.url }}" frameborder="0"></iframe>
+        </div>
+    </body>
