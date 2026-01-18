@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home – Sandbox</title>
+    <title>Library</title>
+
     <style>
-        /* Base Styles */
         body {
             margin: 0;
             padding: 0;
@@ -20,7 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated neon gradient background */
         .neon-bg {
             position: fixed;
             width: 100%;
@@ -40,202 +38,136 @@
             100% { background-position: 0% 50%; }
         }
 
-        h3.page-title {
-            margin-top: 60px;
+        h1 {
+            margin-top: 70px;
+            font-size: 38px;
+            text-align: center;
             color: #00eaff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px #00eaff;
+            text-shadow: 0 0 12px #00eaff;
         }
 
-        /* Content Card */
+        /* Book list container */
         .content-box {
-            margin-top: 20px;
+            margin-top: 30px;
+            margin-bottom: 120px; /* space for floating nav */
             width: 90%;
             max-width: 700px;
             background: rgba(20, 20, 20, 0.85);
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 14px;
             box-shadow: 0 0 30px rgba(0, 255, 200, 0.25);
-            backdrop-filter: blur(10px);
-            margin-bottom: 100px; /* Space for floating nav */
+            backdrop-filter: blur(6px);
         }
 
-        .book-card {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
+        /* PDF Viewer Styling */
+        .pdf-viewer-container {
+            width: 100%;
+            height: 600px;
+            margin-bottom: 25px;
             border-radius: 10px;
-            border: 1px solid rgba(0, 255, 234, 0.1);
-            transition: 0.3s;
+            border: 1px solid #00eaff;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.4);
         }
 
-        .book-card:hover {
-            border-color: #00eaff;
-            box-shadow: 0 0 15px rgba(0, 234, 255, 0.2);
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 18px;
-            background: #00eaff;
-            color: #0d0d0d;
-            border-radius: 6px;
+        .book {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.35);
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .book:hover {
+            background: rgba(0, 234, 255, 0.12);
+            box-shadow: 0 0 14px rgba(0, 234, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .book-title {
+            font-size: 18px;
+            color: #00eaff;
+            text-shadow: 0 0 8px #00eaff;
+        }
+
+        .book-author {
             font-size: 14px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
+            opacity: 0.7;
+            margin-top: 4px;
         }
 
-        .btn:hover {
-            background: #fff;
-            box-shadow: 0 0 15px #00eaff;
-        }
-
-        /* Floating Nav */
+        /* Floating bottom nav */
         .bottom-nav {
             position: fixed;
-            bottom: 25px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: 85%;
-            max-width: 400px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
             padding: 12px 0;
-            border-radius: 25px;
+            border-radius: 18px;
             display: flex;
             justify-content: space-around;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
             z-index: 1000;
         }
 
-        .nav-item {
+        .bottom-nav a {
             color: #ffffff;
             text-decoration: none;
-            font-size: 22px;
-            opacity: 0.5;
-            transition: 0.3s;
+            font-size: 18px;
+            opacity: 0.7;
+            transition: 0.2s;
         }
 
-        .nav-item.active, .nav-item:hover {
+        .bottom-nav a.active,
+        .bottom-nav a:hover {
             opacity: 1;
-            text-shadow: 0 0 10px #00eaff;
-            transform: translateY(-3px);
         }
-
-        /* Dropdown Menu */
-        .menu-btn {
-            position: fixed;
-            top: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            backdrop-filter: blur(8px);
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid #0ff;
-            box-shadow: 0 0 10px #0ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 999;
-        }
-
-        .menu-btn span { width: 25px; height: 3px; background: #0ff; box-shadow: 0 0 5px #0ff; }
-
-        .dropdown-menu {
-            position: fixed;
-            top: 70px;
-            right: 15px;
-            width: 160px;
-            background: rgba(10, 10, 10, 0.95);
-            border: 1px solid #0ff;
-            border-radius: 12px;
-            padding: 8px 0;
-            z-index: 998;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
-        .dropdown-menu a {
-            display: block;
-            padding: 12px 20px;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .dropdown-menu a:hover { background: rgba(0, 255, 255, 0.1); color: #0ff; }
-        .hidden { display: none; }
     </style>
 </head>
+
 <body>
 
     <div class="neon-bg"></div>
 
-    <div class="menu-btn" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-    </div>
-
-    <div id="dropdown-menu" class="dropdown-menu hidden">
-        <a href="#" class="logout-link">Logout</a>
-        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display:none;">
-            {% csrf_token %}
-        </form>
-        <a href="#">Settings</a>
-        <a href="#">About Us</a>
-    </div>
-
-    <h3 class="page-title">Home</h3>
+    <h1>{% if selected_book %}Reading Mode{% else %}Your Library{% endif %}</h1>
 
     <div class="content-box">
-        <h2 style="text-align:center; color:#00eaff; margin-top:0;">Library</h2>
         
-        {% for book in books %}
-            <div class="book-card">
-                <h3 style="margin:0; color:#ffffff">{{ book.title }}</h3>
-                <a href="{% url 'reader' book.id %}" class="btn">Read {{ book.title }}</a>
+        {% if selected_book %}
+            <div class="pdf-viewer-container">
+                <iframe src="{{ selected_book.pdf_file.url }}"></iframe>
             </div>
+            <h2 class="book-title" style="margin-bottom: 20px;">{{ selected_book.title }}</h2>
+            <hr style="border: 0; border-top: 1px solid rgba(0, 234, 255, 0.2); margin-bottom: 25px;">
+        {% endif %}
+
+        {% for book in books %}
+            <a href="{% url 'reader' book.id %}" style="text-decoration:none;">
+                <div class="book">
+                    <div class="book-title">{{ book.title }}</div>
+                    <div class="book-author">{{ book.author }}</div>
+                </div>
+            </a>
         {% empty %}
-            <p style="text-align: center; color: #aaa;">No Books Available</p>
+            <p>No books available.</p>
         {% endfor %}
     </div>
 
-    <div class="bottom-nav">
-        <a href="{% url 'firstpage' %}" class="nav-item {% if active_page == 'home' %}active{% endif %}">🏠</a>
-        <a href="{% url 'search' %}" class="nav-item {% if active_page == 'search' %}active{% endif %}">🔍</a>
-        <a href="{% url 'explore' %}" class="nav-item {% if active_page == 'explore' %}active{% endif %}">✨</a>
-        <a href="{% url 'profile' %}" class="nav-item {% if active_page == 'profile' %}active{% endif %}">👤</a>
-    </div>
+    <nav class="bottom-nav">
+        <a href="{% url 'firstpage' %}" class="{% if active_page == 'home' %}active{% endif %}">Home</a>
+        <a href="#">Categories</a>
+        <a href="#">Settings</a>
+    </nav>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById("dropdown-menu").classList.toggle("hidden");
-        }
-
-        
-        window.onclick = function(event) {
-            if (!event.target.closest('.menu-btn') && !event.target.closest('.dropdown-menu')) {
-                document.getElementById("dropdown-menu").classList.add("hidden");
-            }
-        }
-
-        
-        document.addEventListener('click', function (e) {
-            const logoutLink = e.target.closest('.logout-link');
-            if (logoutLink) {
-                e.preventDefault();
-                const form = document.getElementById('logout-form');
-                if (form) form.submit();
-            }
-        });
-    </script>
 </body>
 </html>

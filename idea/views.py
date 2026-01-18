@@ -2,14 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignUpForm
-from .models import profile as ProfileModel
+from .models import profile as ProfileModel,profile, Book
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.views.generic import TemplateView
-from django.contrib import admin
-from .models import profile, Book
+
+
 
 def login_page(request):
     form = AuthenticationForm(request, data=(request.POST or None))
@@ -44,14 +44,24 @@ class Home(TemplateView):
         return ctx
 
 
+from django.shortcuts import get_object_or_404
+
 class Firstpage(TemplateView):
-    template_name='firstpage.html'
+    template_name = 'firstpage.html'
 
     def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['books']= Book.objects.all()
-        ctx['active_page'] = 'home'
-        return ctx
+        context = super().get_context_data(**kwargs)
+        context['books'] = Book.objects.all()
+        context['active_page'] = 'home'
+        
+        
+        book_id = self.kwargs.get('pk')
+        if book_id:
+            context['selected_book'] = get_object_or_404(Book, pk=book_id)
+            
+        return context
+
+
 
 def reader(request,book_id):
     book= get_object_or_404(Book,id=book_id)

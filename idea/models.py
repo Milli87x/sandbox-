@@ -15,7 +15,7 @@ class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     description= models.TextField(blank=True,null=True)
-    pdf_file = models.FileField(upload_to='BOOKS/', null=True, blank=False)
+    pdf_file = models.FileField(upload_to='books/',null=True)
     num_pages = models.PositiveIntegerField(null=True)
     year_written = models.PositiveIntegerField(null=True)
     upload_time = models.DateTimeField(auto_now_add=True,null=True)
